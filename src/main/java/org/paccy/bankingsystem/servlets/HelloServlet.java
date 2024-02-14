@@ -1,4 +1,4 @@
-package org.paccy.bankingsystem;
+package org.paccy.bankingsystem.servlets;
 
 import java.io.*;
 import jakarta.servlet.http.*;

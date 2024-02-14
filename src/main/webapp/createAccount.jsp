@@ -13,9 +13,13 @@
 </head>
 <body>
 <h2>Create New Account</h2>
-<form action="createAccountServelet" method="get">
-<label for="name" >Name:</label>
-    <input type="text" id="name" name="firstName" required> <br><br>
+<form action="createAccountServlet" method="post">
+<label >Account Type</label>
+    <select name="accountType">
+        <option value="Current" name="accountType">Current</option>
+
+        <option value="Saving" name="accountType">Saving</option>
+    </select>
 
 <label for="balance" >Initial Balance :</label>
     <input type="text" id="balance" name="balance" required> <br><br>
