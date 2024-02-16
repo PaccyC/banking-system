@@ -16,7 +16,7 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-@WebServlet("/createCustomerServlet")
+@WebServlet("/register")
 public class RegistrationServlet  extends HttpServlet {
     private static final long serialVersionUID=1L;
 //        Variables of database connection
@@ -33,6 +33,10 @@ public class RegistrationServlet  extends HttpServlet {
 
         String name=request.getParameter("name");
         String age=request.getParameter("age");
+        String password=request.getParameter("password");
+        String email=request.getParameter("email");
+        String accountType=request.getParameter("accountType");
+        Double balance = Double.valueOf(request.getParameter("balance"));
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
             connection= DriverManager.getConnection(DATABASE_URL,USERNAME,PASSWORD);
@@ -41,13 +45,17 @@ public class RegistrationServlet  extends HttpServlet {
             String query="CREATE TABLE IF NOT EXISTS customers("+
                     "id INT AUTO_INCREMENT PRIMARY KEY," +
                     "name VARCHAR(100) NOT NULL, "+
-                    "age VARCHAR(5) NOT NULL"+
+                    "email VARCHAR(30) NOT NULL,"+
+                    "age VARCHAR(5) NOT NULL, "+
+                    "password VARCHAR(60) NOT NULL,"+
+                    "accountType VARCHAR(20) NOT NULL, " +
+                    "balance DECIMAL(10,2) NOT NULL DEFAULT 0.00 " +
                     ")";
 
 
             statement.executeUpdate(query);
             CustomerDAO customerDAO = new CustomerDAO(connection);
-            customerDAO.addCustomer(new Customer(name, age));
+            customerDAO.addCustomer(new Customer(name,email,age,password,accountType,balance));
 
 
 

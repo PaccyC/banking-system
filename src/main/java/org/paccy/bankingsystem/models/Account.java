@@ -11,10 +11,15 @@ public class Account {
     private int id;
     private int customerId;
     private String type;
-    private double balance;
+    private String balance;
 
     public Account(int customerId, String type) {
         this.customerId=customerId;
         this.type=type;
+    }
+
+    public Account(String type, String balance) {
+        this.type=type;
+        this.balance=balance;
     }
 }

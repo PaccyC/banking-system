@@ -12,7 +12,6 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import org.paccy.bankingsystem.DAO.AccountDAO;
 import org.paccy.bankingsystem.models.Account;
 
 
@@ -35,16 +34,8 @@ public class DepositServlet extends HttpServlet {
 
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
-            connection= DriverManager.getConnection(DATABASE_URL,USERNAME,PASSWORD);
-            statement =connection.createStatement();
-            AccountDAO accountDAO = new AccountDAO(connection);
-            Account account = (Account) accountDAO.getAccountByCustomerId(accountId);
-//            account.deposit(amount);
-//            accountDAO.updateAccount(account);
+
             response.sendRedirect("deposit-success.jsp");
-        } catch (SQLException e) {
-            e.printStackTrace();
-            response.sendRedirect("error.jsp");
         } catch (ClassNotFoundException e) {
             throw new RuntimeException(e);
         }

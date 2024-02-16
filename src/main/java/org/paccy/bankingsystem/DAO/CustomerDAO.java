@@ -16,12 +16,17 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 public class CustomerDAO {
+
     private Connection connection;
     public void  addCustomer(Customer customer) throws SQLException {
-        String query= "INSERT INTO customers (name,age) VALUES (?,?)";
+        String query= "INSERT INTO customers (name,email,age,password,accountType,balance) VALUES (?,?,?,?,?,?)";
         try(PreparedStatement statement=connection.prepareStatement(query)) {
             statement.setString(1, customer.getName());
-            statement.setString(2,customer.getAge());
+            statement.setString(2,customer.getEmail());
+            statement.setString(3,customer.getAge());
+            statement.setString(4,customer.getPassword());
+            statement.setString(5,customer.getAccountType());
+            statement.setDouble(6,customer.getBalance());
             statement.executeUpdate();
         }
 
@@ -36,8 +41,12 @@ public class CustomerDAO {
   while (resultSet.next()){
       int id=resultSet.getInt("id");
       String name= resultSet.getString("name");
+      String email=resultSet.getString("email");
       String age=resultSet.getString("age");
-      customers.add(new Customer(id,name,age));
+      String password=resultSet.getString("password");
+      String accountType=resultSet.getString("accountType");
+      Double balance=resultSet.getDouble("balance");
+      customers.add(new Customer(name,email,age,password,accountType,balance));
   }
 
         }
